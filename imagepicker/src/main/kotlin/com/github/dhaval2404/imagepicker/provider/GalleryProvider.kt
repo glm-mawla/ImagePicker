@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePickerActivity
 import com.github.dhaval2404.imagepicker.R
@@ -16,8 +17,9 @@ import com.github.dhaval2404.imagepicker.util.IntentUtils
  * @version 1.0
  * @since 04 January 2019
  */
-class GalleryProvider(activity: ImagePickerActivity) :
-    BaseProvider(activity) {
+class GalleryProvider(
+    activity: ImagePickerActivity
+) : BaseProvider(activity) {
 
     companion object {
         private const val GALLERY_INTENT_REQ_CODE = 4261
@@ -33,6 +35,19 @@ class GalleryProvider(activity: ImagePickerActivity) :
         mimeTypes = bundle.getStringArray(ImagePicker.EXTRA_MIME_TYPES) ?: emptyArray()
     }
 
+    private val photoPickerLauncher = activity.registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imageUri = result.data?.data
+            if (imageUri != null) {
+                handleResult(result.data)
+            } else {
+                setResultCancel()
+            }
+        }
+    }
+
     /**
      * Start Gallery Capture Intent
      */
@@ -45,7 +60,7 @@ class GalleryProvider(activity: ImagePickerActivity) :
      */
     private fun startGalleryIntent() {
         val galleryIntent = IntentUtils.getGalleryIntent(activity, mimeTypes)
-        activity.startActivityForResult(galleryIntent, GALLERY_INTENT_REQ_CODE)
+        photoPickerLauncher.launch(galleryIntent) // Android native Picker
     }
 
     /**

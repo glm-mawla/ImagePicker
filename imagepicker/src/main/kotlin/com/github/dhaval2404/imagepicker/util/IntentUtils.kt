@@ -40,7 +40,13 @@ object IntentUtils {
      */
     private fun getGalleryDocumentIntent(mimeTypes: Array<String>): Intent {
         // Show Document Intent
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).applyImageTypes(mimeTypes)
+        var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            intent = Intent(MediaStore.ACTION_PICK_IMAGES)
+        }
+
+        intent.applyImageTypes(mimeTypes)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
