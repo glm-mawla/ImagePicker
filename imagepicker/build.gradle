@@ -77,7 +77,7 @@ ext {
     siteUrl = 'https://github.com/Dhaval2404/ImagePicker/'
     gitUrl = 'https://github.com/Dhaval2404/ImagePicker.git'
 
-    libraryVersion = '2.1'
+    libraryVersion = '3.0.0'
     //If you are uploading new library try : gradlew install
     //If you are updating existing library then execute: gradlew bintrayUpload
     //In both the case don't forgot to put bintray credentials in local.properties file.
