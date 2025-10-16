@@ -1,16 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.4.0'
+    ext.kotlin_version = '2.2.20'
     repositories {
         google()
+        mavenCentral()
         maven { url "https://jitpack.io" }
-        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath 'com.android.tools.build:gradle:8.13.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.15.0"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.8"
     }
 }
 
@@ -19,8 +19,8 @@ allprojects {
 
     repositories {
         google()
+        mavenCentral()
         maven { url "https://jitpack.io" }
-        jcenter()
     }
 
     detekt {
@@ -29,8 +29,10 @@ allprojects {
     }
 
     // Avoid Kotlin docs error
-    tasks.withType(Javadoc) {
-        enabled = false
+    tasks.withType(Javadoc).tap {
+        configureEach {
+            enabled = true
+        }
     }
 
 }
