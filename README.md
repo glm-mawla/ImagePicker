@@ -295,11 +295,14 @@ Almost 90% of the app that I have developed has an Image upload feature. Along w
 
 # 💥Compatibility
 
-  * Library - Android Kitkat 4.4+ (API 19)
-  * Sample - Android Kitkat 4.4+ (API 19)
+  * Library - Android (API 21)
+  * Sample - Android (API 21)
 
 # ✔️Changelog
-
+### Version: 3.0.0
+  * Added Android Image Picker
+  * Migrate to Kotlin version 2.2.20
+    
 ### Version: 2.1
   * Added uzbekistan translation (Special Thanks to Khudoyshukur Juraev)
   * Removed requestLegacyExternalStorage flag
